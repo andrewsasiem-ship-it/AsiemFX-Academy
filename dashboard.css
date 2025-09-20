@@ -1,0 +1,130 @@
+/* dashboard.css */
+
+body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.15);
+  overflow: hidden;
+}
+
+.dashboard-header {
+  background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+  color: #fff;
+  padding: 32px 32px 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dashboard-header .danger {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.08);
+}
+.dashboard-header .danger:hover {
+  background: #dc2626;
+}
+
+.message-section {
+  padding: 24px 32px 32px 32px;
+}
+
+.message-box {
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 18px;
+  min-height: 120px;
+  box-shadow: 0 2px 8px rgba(60, 72, 88, 0.05);
+}
+.inbox-title {
+  font-size: 1.1rem;
+  color: #6366f1;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.msg {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(60, 72, 88, 0.07);
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  transition: box-shadow 0.2s;
+  border-left: 4px solid #6366f1;
+}
+.msg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.msg-user {
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.msg-phone {
+  color: #64748b;
+  font-size: 0.98rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.msg-body {
+  color: #374151;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.msg-footer {
+  text-align: right;
+}
+.msg-footer small {
+  color: #94a3b8;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 98vw;
+    margin: 10px;
+  }
+  .dashboard-header, .message-section {
+    padding: 16px;
+  }
+  .message-box {
+    padding: 10px;
+  }
+}

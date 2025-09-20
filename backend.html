@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header class="dashboard-header">
+      <h1><i class="fa-solid fa-envelope-open-text"></i> Admin Dashboard</h1>
+      <button class="danger" onclick="clearMessages()"><i class="fa-solid fa-trash"></i> Clear Inbox</button>
+    </header>
+    <section class="message-section">
+      <div class="message-box" id="messageBox">
+        <p class="inbox-title"><i class="fa-solid fa-inbox"></i> <strong>Inbox:</strong></p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Load messages on page load
+    window.onload = function () {
+      let savedMessages = JSON.parse(localStorage.getItem("messages")) || [];
+      savedMessages.forEach(msg => displayMessage(msg));
+    };
+
+    // Listen for localStorage changes to update dashboard automatically
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'messages') {
+        document.getElementById("messageBox").innerHTML = '<p class="inbox-title"><i class="fa-solid fa-inbox"></i> <strong>Inbox:</strong></p>';
+        let savedMessages = JSON.parse(localStorage.getItem("messages")) || [];
+        savedMessages.forEach(msg => displayMessage(msg));
+      }
+    });
+
+    function displayMessage(msgData) {
+      let msgBox = document.getElementById("messageBox");
+      let newMsg = document.createElement("div");
+      newMsg.classList.add("msg");
+      newMsg.innerHTML = `
+        <div class="msg-header">
+          <span class="msg-user"><i class="fa-solid fa-user"></i> <strong>${msgData.name}</strong></span>
+          <span class="msg-phone"><i class="fa-solid fa-phone"></i> ${msgData.phone}</span>
+        </div>
+        <div class="msg-body">
+          <i class="fa-solid fa-comment"></i> ${msgData.message}
+        </div>
+        <div class="msg-footer">
+          <small><i class="fa-solid fa-clock"></i> ${msgData.time}</small>
+        </div>
+      `;
+      msgBox.appendChild(newMsg);
+
+      // Log in console for admin
+      console.log(`Message from ${msgData.name} (${msgData.phone}): ${msgData.message}`);
+    }
+
+    function clearMessages() {
+      localStorage.removeItem("messages");
+      document.getElementById("messageBox").innerHTML = "<p class=\"inbox-title\"><i class=\"fa-solid fa-inbox\"></i> <strong>Inbox:</strong> (cleared)</p>";
+    }
+  </script>
+</body>
+</html>

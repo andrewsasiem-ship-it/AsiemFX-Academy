@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AsiemFX Academy</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="frontend.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">AsiemFX Academy</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Courses</a></li>
+      <li><a href="#">Mentorship</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <div class="container">
+    <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
+    <div class="form-group">
+      <input type="email" id="email" placeholder="Email Address" required>
+    </div>
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Password" required>
+    </div>
+    <button class="send-btn" onclick="login()"><i class="fa-solid fa-sign-in-alt"></i> Login</button>
+    <p class="signup-link" style="margin-top: 20px;">Don't have an account? <a href="signup.html">Sign Up</a></p>
+    <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+  </div>
+
+  <footer>
+    <p>📍 Accra, Ghana | 📧 support@asiemfxacademy.com | 📱 +233 XXX XXX XXX</p>
+    <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    function login() {
+      let email = document.getElementById("email").value.trim();
+      let password = document.getElementById("password").value;
+
+      if (email === "" || password === "") {
+        alert("Please enter both email and password!");
+        return;
+      }
+
+      // Get users from localStorage
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+      let user = users.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        // Save current user session
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        alert("Login successful!");
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid email or password. Please try again.");
+      }
+    }
+
+    // Forgot password functionality
+    document.getElementById("forgotPassword").addEventListener("click", function(e) {
+      e.preventDefault();
+      let email = prompt("Enter your email address to reset your password:");
+      
+      if (email) {
+        alert("If an account with this email exists, password reset instructions will be sent to your email.");
+        // In a real application, this would send an email with reset instructions
+      }
+    });
+  </script>
+</body>
+</html>

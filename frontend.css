@@ -1,0 +1,83 @@
+body {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(60, 72, 88, 0.15);
+  padding: 32px 28px 28px 28px;
+  text-align: center;
+}
+h2 {
+  color: #6366f1;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.form-group {
+  margin-bottom: 18px;
+}
+input[type="text"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #c7d2fe;
+  font-size: 1rem;
+  background: #f3f4f6;
+  transition: border 0.2s, box-shadow 0.2s;
+  margin-bottom: 4px;
+}
+input[type="text"]:focus,
+input[type="tel"]:focus,
+textarea:focus {
+  border: 1.5px solid #6366f1;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+  outline: none;
+}
+input[type="tel"]:hover,
+input[type="text"]:hover,
+textarea:hover {
+  border: 1.5px solid #60a5fa;
+}
+.send-btn {
+  background: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.08);
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.send-btn:hover {
+  background: linear-gradient(90deg, #60a5fa 0%, #6366f1 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+@media (max-width: 500px) {
+  .container {
+    max-width: 98vw;
+    margin: 10px;
+    padding: 16px;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AsiemFX Academy</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">AsiemFX Academy</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Courses</a></li>
+      <li><a href="#">Mentorship</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  <header class="hero">
+    <h1>Unlock Financial Freedom Through Expert Forex Education</h1>
+    <p>Join thousands of successful traders who started their journey at AsiemFX Academy.</p>
+    <div class="cta-buttons" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:32px;">
+      <a href="#" class="btn primary" style="min-width:180px;">Get Started Today</a>
+      <a href="#" class="btn secondary" style="min-width:180px;">Explore Courses</a>
+      <a href="signup.html" class="btn secondary" style="min-width:180px;">Sign Up</a>
+      <a href="login.html" class="btn secondary" style="min-width:180px;">Log In</a>
+      <a href="backend.html" class="btn primary" style="min-width:180px;">Admin Backend</a>
+    </div>
+  </header>
+
+  <section class="about">
+    <div class="candlestick-bg"></div>
+    <h2>About Us</h2>
+    <p>Empowering individuals across Africa and beyond with the skills, mindset, and tools to thrive in the global financial markets.</p>
+    <h2 style="text-align:center;">About Us</h2>
+    <p style="text-align:center;max-width:600px;margin:0 auto;">Empowering individuals across Africa and beyond with the skills, mindset, and tools to thrive in the global financial markets.</p>
+  </section>
+
+  <section class="courses">
+    <div class="candlestick-bg"></div>
+    <h2>Featured Courses</h2>
+    <table>
+      <h2 style="text-align:center;">Featured Courses</h2>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;">
+        <div class="course-card-home">
+          <h3>Forex Fundamentals</h3>
+          <p>Beginner • 4 Weeks</p>
+          <span class="price">Free</span>
+        </div>
+        <div class="course-card-home">
+          <h3>Technical Analysis Pro</h3>
+          <p>Intermediate • 6 Weeks</p>
+          <span class="price">$149</span>
+        </div>
+        <div class="course-card-home">
+          <h3>Master Trader Bootcamp</h3>
+          <p>Advanced • 8 Weeks</p>
+          <span class="price">$299</span>
+        </div>
+        <div class="course-card-home">
+          <h3>Trading Psychology & Mindset</h3>
+          <p>All Levels • 2 Weeks</p>
+          <span class="price">$99</span>
+        </div>
+        <div class="course-card-home">
+          <h3>Global Markets & News Analysis</h3>
+          <p>Intermediate • 3 Weeks</p>
+          <span class="price">$129</span>
+        </div>
+      </div>
+    </table>
+  </section>
+
+  <section class="testimonials">
+    <div class="candlestick-bg"></div>
+    <h2>Student Testimonials</h2>
+    <p id="testimonial-text">“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra</p>
+    <h2 style="text-align:center;">Student Testimonials</h2>
+    <p id="testimonial-text" style="text-align:center;max-width:600px;margin:0 auto;">“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra</p>
+  </section>
+
+
+  <!-- WhatsApp Contact Button -->
+  <section class="whatsapp-contact" style="text-align:center; margin: 40px 0;">
+    <a href="https://wa.me/233201464371" class="btn primary" style="background-color:#25D366;color:white;display:inline-block;font-size:1.2rem;" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Chat with us on WhatsApp: 0201464371
+    </a>
+  </section>
+
+  <footer>
+    <p>📍 Accra, Ghana | 📧 support@asiemfxacademy.com | 📱 +233 XXX XXX XXX</p>
+    <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    const testimonials = [
+      "“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra",
+      "“The mentorship is unmatched. I now trade full-time thanks to their guidance.” — Fatima S., Lagos",
+      "“The community support kept me going. Highly recommend AsiemFX.” — Daniel M., Nairobi"
+    ];
+
+    let current = 0;
+    setInterval(() => {
+      current = (current + 1) % testimonials.length;
+      document.getElementById("testimonial-text").textContent = testimonials[current];
+    }, 5000);
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("formStatus").textContent = "Thanks for reaching out! We'll get back to you soon.";
+      this.reset();
+    });
+
+    document.getElementById("newsletterForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      document.getElementById("newsletterStatus").textContent = "You're subscribed! Watch your inbox for updates.";
+      this.reset();
+    });
+
+    function startPayment() {
+      alert("Redirecting to secure payment gateway...");
+    }
+  </script>
+</body>
+</html>
