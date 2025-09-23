@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 100%;
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
   <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AsiemFX Academy</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,7 +55,7 @@
       <li><a href="#">Home</a></li>
       <li><a href="#">About</a></li>
       <li><a href="#">Courses</a></li>
-      <li><a href="#">Mentorship</a></li>
+  <li><a href="Mentorship.html">Mentorship</a></li>
       <li><a href="#">Blog</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
@@ -27,63 +66,56 @@
     <h1>Unlock Financial Freedom Through Expert Forex Education</h1>
     <p>Join thousands of successful traders who started their journey at AsiemFX Academy.</p>
     <div class="cta-buttons" style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:32px;">
-      <a href="#" class="btn primary" style="min-width:180px;">Get Started Today</a>
-      <a href="#" class="btn secondary" style="min-width:180px;">Explore Courses</a>
-      <a href="signup.html" class="btn secondary" style="min-width:180px;">Sign Up</a>
-      <a href="login.html" class="btn secondary" style="min-width:180px;">Log In</a>
-      <a href="backend.html" class="btn primary" style="min-width:180px;">Admin Backend</a>
+  <a href="#" class="btn primary" style="min-width:180px;">Get Started Today</a>
+  <a href="#" class="btn secondary" style="min-width:180px;">Explore Courses</a>
+  <a href="signup.html" class="btn secondary" style="min-width:180px;">Sign Up</a>
+  <a href="login.html" class="btn secondary" style="min-width:180px;">Log In</a>
     </div>
   </header>
 
   <section class="about">
-    <div class="candlestick-bg"></div>
-    <h2>About Us</h2>
-    <p>Empowering individuals across Africa and beyond with the skills, mindset, and tools to thrive in the global financial markets.</p>
-    <h2 style="text-align:center;">About Us</h2>
-    <p style="text-align:center;max-width:600px;margin:0 auto;">Empowering individuals across Africa and beyond with the skills, mindset, and tools to thrive in the global financial markets.</p>
+  <div class="candlestick-bg"></div>
+  <h2 style="text-align:center;">About Us</h2>
+  <p style="text-align:center;max-width:600px;margin:0 auto;">Empowering individuals across Africa and beyond with the skills, mindset, and tools to thrive in the global financial markets.</p>
   </section>
 
   <section class="courses">
-    <div class="candlestick-bg"></div>
-    <h2>Featured Courses</h2>
-    <table>
-      <h2 style="text-align:center;">Featured Courses</h2>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;">
-        <div class="course-card-home">
-          <h3>Forex Fundamentals</h3>
-          <p>Beginner • 4 Weeks</p>
-          <span class="price">Free</span>
-        </div>
-        <div class="course-card-home">
-          <h3>Technical Analysis Pro</h3>
-          <p>Intermediate • 6 Weeks</p>
-          <span class="price">$149</span>
-        </div>
-        <div class="course-card-home">
-          <h3>Master Trader Bootcamp</h3>
-          <p>Advanced • 8 Weeks</p>
-          <span class="price">$299</span>
-        </div>
-        <div class="course-card-home">
-          <h3>Trading Psychology & Mindset</h3>
-          <p>All Levels • 2 Weeks</p>
-          <span class="price">$99</span>
-        </div>
-        <div class="course-card-home">
-          <h3>Global Markets & News Analysis</h3>
-          <p>Intermediate • 3 Weeks</p>
-          <span class="price">$129</span>
-        </div>
+  <div class="candlestick-bg"></div>
+  <h2 style="text-align:center;">Featured Courses</h2>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;">
+      <div class="course-card-home">
+        <h3>Forex Fundamentals</h3>
+        <p>Beginner • 4 Weeks</p>
+        <span class="price">Free</span>
       </div>
-    </table>
+      <div class="course-card-home">
+        <h3>Technical Analysis Pro</h3>
+        <p>Intermediate • 6 Weeks</p>
+        <span class="price">$149</span>
+      </div>
+      <div class="course-card-home">
+        <h3>Master Trader Bootcamp</h3>
+        <p>Advanced • 8 Weeks</p>
+        <span class="price">$299</span>
+      </div>
+      <div class="course-card-home">
+        <h3>Trading Psychology & Mindset</h3>
+        <p>All Levels • 2 Weeks</p>
+        <span class="price">$99</span>
+      </div>
+      <div class="course-card-home">
+        <h3>Global Markets & News Analysis</h3>
+        <p>Intermediate • 3 Weeks</p>
+        <span class="price">$129</span>
+      </div>
+    </div>
+
   </section>
 
   <section class="testimonials">
-    <div class="candlestick-bg"></div>
-    <h2>Student Testimonials</h2>
-    <p id="testimonial-text">“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra</p>
-    <h2 style="text-align:center;">Student Testimonials</h2>
-    <p id="testimonial-text" style="text-align:center;max-width:600px;margin:0 auto;">“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra</p>
+  <div class="candlestick-bg"></div>
+  <h2 style="text-align:center;">Student Testimonials</h2>
+  <p id="testimonial-text" style="text-align:center;max-width:600px;margin:0 auto;">“AsiemFX changed my life. I went from clueless to confident in just 3 months.” — Kwame A., Accra</p>
   </section>
 
 
@@ -95,11 +127,58 @@
   </section>
 
   <footer>
-    <p>📍 Accra, Ghana | 📧 support@asiemfxacademy.com | 📱 +233 XXX XXX XXX</p>
-    <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+  <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+  <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
   </footer>
 
+  <!-- Contact/Message Modal -->
+  <div id="contactModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:32px 24px;border-radius:12px;max-width:400px;width:90%;position:relative;">
+      <button onclick="closeContactModal()" style="position:absolute;top:8px;right:12px;font-size:1.2rem;background:none;border:none;cursor:pointer;">&times;</button>
+      <h3>Send a Message</h3>
+      <form id="apiContactForm">
+        <input type="text" id="msgName" placeholder="Your Name" required style="width:100%;margin-bottom:10px;">
+        <input type="tel" id="msgPhone" placeholder="Phone Number" required style="width:100%;margin-bottom:10px;">
+        <textarea id="msgMessage" placeholder="Message" required style="width:100%;margin-bottom:10px;"></textarea>
+        <button type="submit" class="btn primary" style="width:100%;">Send</button>
+        <div id="msgStatus" style="margin-top:10px;color:green;"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Forgot Password Modal -->
+  <div id="forgotModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#fff;padding:32px 24px;border-radius:12px;max-width:400px;width:90%;position:relative;">
+      <button onclick="closeForgotModal()" style="position:absolute;top:8px;right:12px;font-size:1.2rem;background:none;border:none;cursor:pointer;">&times;</button>
+      <h3>Forgot Password</h3>
+      <form id="forgotForm">
+        <input type="email" id="forgotEmail" placeholder="Enter your email" required style="width:100%;margin-bottom:10px;">
+        <button type="submit" class="btn primary" style="width:100%;">Send Reset Link</button>
+        <div id="forgotStatus" style="margin-top:10px;color:green;"></div>
+      </form>
+    </div>
+  </div>
+
   <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
     function toggleMenu() {
       document.getElementById("navLinks").classList.toggle("show");
     }
@@ -109,24 +188,87 @@
       "“The mentorship is unmatched. I now trade full-time thanks to their guidance.” — Fatima S., Lagos",
       "“The community support kept me going. Highly recommend AsiemFX.” — Daniel M., Nairobi"
     ];
-
     let current = 0;
     setInterval(() => {
       current = (current + 1) % testimonials.length;
       document.getElementById("testimonial-text").textContent = testimonials[current];
     }, 5000);
 
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
+    // Contact Modal logic
+    function openContactModal() {
+      document.getElementById('contactModal').style.display = 'flex';
+    }
+    function closeContactModal() {
+      document.getElementById('contactModal').style.display = 'none';
+    }
+    document.getElementById('apiContactForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      document.getElementById("formStatus").textContent = "Thanks for reaching out! We'll get back to you soon.";
-      this.reset();
+      const name = document.getElementById('msgName').value.trim();
+      const phone = document.getElementById('msgPhone').value.trim();
+      const message = document.getElementById('msgMessage').value.trim();
+      const res = await fetch('api/messages.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, message })
+      });
+      const data = await res.json();
+      document.getElementById('msgStatus').textContent = data.success ? 'Message sent!' : 'Failed to send.';
+      if(data.success) this.reset();
     });
 
-    document.getElementById("newsletterForm").addEventListener("submit", function(e) {
+    // Forgot Password Modal logic
+    function openForgotModal() {
+      document.getElementById('forgotModal').style.display = 'flex';
+    }
+    function closeForgotModal() {
+      document.getElementById('forgotModal').style.display = 'none';
+    }
+    document.getElementById('forgotForm')?.addEventListener('submit', async function(e) {
       e.preventDefault();
-      document.getElementById("newsletterStatus").textContent = "You're subscribed! Watch your inbox for updates.";
-      this.reset();
+      const email = document.getElementById('forgotEmail').value.trim();
+      // Generate a random reset code (for demo)
+      const newPass = Math.random().toString(36).slice(-8);
+      // Update password in DB
+      const res = await fetch('api/users.php', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password: newPass })
+      });
+      const data = await res.json();
+      if(data.success) {
+        // Send email
+        await fetch('api/email.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ to: email, subject: 'Password Reset', message: 'Your new password: ' + newPass })
+        });
+        document.getElementById('forgotStatus').textContent = 'A new password has been sent to your email.';
+        this.reset();
+      } else {
+        document.getElementById('forgotStatus').textContent = 'Email not found.';
+      }
     });
+
+    // Login feedback and show/hide password (for demo, replace with real login logic)
+    function loginUser(email, password) {
+      // Example: fetch('api/users.php?email=...') and check password
+      // For demo, just show feedback
+      if(email === '' || password === '') {
+        alert('Please enter both email and password!');
+        return;
+      }
+      // TODO: Replace with real backend check
+      alert('Login checked! (Integrate with backend for real validation)');
+    }
+    // Show/hide password logic (for login form)
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      if(input.type === 'password') input.type = 'text';
+      else input.type = 'password';
+    }
+
+    // Add a button to open contact modal (for demo, you can add to nav or footer)
+    // Example: <button onclick="openContactModal()">Contact Us</button>
 
     function startPayment() {
       alert("Redirecting to secure payment gateway...");

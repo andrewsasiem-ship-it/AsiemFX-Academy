@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 100%;
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - AsiemFX Academy</title>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f8;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .admin-root {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 0;
+      height: 100vh;
+    }
+    .admin-sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, #23235b 0%, #6366f1 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 0 0 0;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.07);
+      min-height: 100vh;
+      position: relative;
+    }
+    .admin-sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      color: #fff;
+      text-align: center;
+    }
+    .admin-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      align-items: center;
+    }
+    .admin-nav button {
+      background: none;
+      color: #fff;
+      border: none;
+      padding: 14px 0;
+      width: 90%;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-align: left;
+      padding-left: 24px;
+    }
+    .admin-nav button.active, .admin-nav button:hover {
+      background: #374151;
+    }
+    .admin-main {
+      flex: 1 1 auto;
+      padding: 40px 5vw 40px 5vw;
+      background: #f4f6f8;
+      min-width: 0;
+      overflow-x: auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .admin-section {
+      display: none;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .admin-section.active {
+      display: block;
+    }
+    h2 {
+      color: #6366f1;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+    th, td {
+      padding: 14px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: center;
+    }
+    th {
+      background: #f0f4ff;
+      color: #222;
+      font-size: 1.1rem;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    .action-btn {
+      background: #60a5fa;
+      color: #fff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 4px;
+    }
+    .action-btn.delete { background: #ef4444; }
+    .action-btn.save { background: #10b981; }
+    .add-course-form {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+    .add-course-form input, .add-course-form select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      min-width: 180px;
+    }
+    .add-course-form button {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .admin-footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #555;
+      background: #fff;
+      padding: 18px 0 0 0;
+      border-top: 1px solid #e5e7eb;
+    }
+    @media (max-width: 900px) {
+      .admin-main { padding: 30px 2vw; }
+      .admin-sidebar { width: 70px; padding: 18px 0 0 0; }
+      .admin-sidebar h1 { font-size: 1rem; margin-bottom: 20px; }
+      .admin-nav button { font-size: 0.95rem; padding-left: 10px; }
+    }
+    @media (max-width: 600px) {
+      .admin-root { flex-direction: column; }
+      .admin-sidebar { width: 100vw; flex-direction: row; justify-content: space-around; min-height: unset; height: 60px; position: static; }
+      .admin-main { padding: 10px 2vw; }
+      .admin-section { padding: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-root">
+    <aside class="admin-sidebar">
+      <h1><i class="fa-solid fa-user-shield"></i> <span style="font-weight:400;">Admin</span></h1>
+      <nav class="admin-nav">
+  <button class="active" onclick="showSection('courses')"><i class="fa-solid fa-book"></i> Courses</button>
+  <button onclick="showSection('users')"><i class="fa-solid fa-users"></i> Users</button>
+  <button onclick="showSection('activity')"><i class="fa-solid fa-list-check"></i> Activity</button>
+  <button onclick="showSection('settings')"><i class="fa-solid fa-gear"></i> Settings</button>
+      </nav>
+    </aside>
+    <main class="admin-main">
+      <div id="courses" class="admin-section active">
+        <h2>Manage Courses</h2>
+        <form class="add-course-form" onsubmit="addCourse(event)">
+          <input type="text" id="courseName" placeholder="Course Name" required>
+          <input type="text" id="courseLevel" placeholder="Level (Beginner, Intermediate, Advanced)" required>
+          <input type="text" id="courseDuration" placeholder="Duration (e.g. 4 Weeks)" required>
+          <input type="text" id="coursePrice" placeholder="Price (e.g. $99)" required>
+          <button type="submit"><i class="fa-solid fa-plus"></i> Add Course</button>
+        </form>
+        <table id="coursesTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Level</th>
+              <th>Duration</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Courses will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+      <div id="users" class="admin-section">
+        <h2>Registered Users</h2>
+        <table id="usersTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Users will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+      <div id="activity" class="admin-section">
+        <h2>User Activity & Progress</h2>
+        <table id="activityTable">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Action</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Activity will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+      <div id="settings" class="admin-section">
+        <h2>Admin Settings & Privileges</h2>
+        <form id="adminSettingsForm" style="margin-bottom:32px;">
+          <label style="display:block;margin-bottom:10px;">
+            <input type="checkbox" id="canEditCourses" checked>
+            Allow editing courses
+          </label>
+          <label style="display:block;margin-bottom:10px;">
+            <input type="checkbox" id="canDeleteUsers" checked>
+            Allow deleting users
+          </label>
+          <label style="display:block;margin-bottom:10px;">
+            <input type="checkbox" id="canViewActivity" checked>
+            Allow viewing activity log
+          </label>
+          <button type="submit" class="action-btn save" style="margin-top:10px;">Save Settings</button>
+        </form>
+        <h3>Manage Admin Users</h3>
+        <form id="addAdminForm" style="display:flex;gap:10px;margin-bottom:18px;">
+          <input type="email" id="newAdminEmail" placeholder="Admin Email" required style="padding:8px;border-radius:6px;border:1px solid #ccc;">
+          <button type="submit" class="action-btn">Add Admin</button>
+        </form>
+        <table id="adminUsersTable" style="width:100%;background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+          <thead>
+            <tr><th>Email</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <!-- Admin users will be loaded here -->
+          </tbody>
+        </table>
+      </div>
+      <footer class="admin-footer">
+        <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+        <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+      </footer>
+    </main>
+  </div>
+  <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
+    // Section navigation
+    function showSection(section) {
+      document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(section).classList.add('active');
+      document.querySelectorAll('.admin-nav button').forEach(btn => btn.classList.remove('active'));
+      if(section === 'courses') document.querySelectorAll('.admin-nav button')[0].classList.add('active');
+      if(section === 'users') document.querySelectorAll('.admin-nav button')[1].classList.add('active');
+      if(section === 'settings') document.querySelectorAll('.admin-nav button')[2].classList.add('active');
+    }
+
+    // --- Courses CRUD (Backend API) ---
+    async function loadCourses() {
+      const res = await fetch('api/courses.php');
+      const data = await res.json();
+      const tbody = document.querySelector('#coursesTable tbody');
+      tbody.innerHTML = '';
+      if(data.success && data.courses && data.courses.length > 0) {
+        data.courses.forEach((course, idx) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><input value="${course.name}" onchange="editCourse(${course.id}, 'name', this.value)" /></td>
+            <td><input value="${course.level}" onchange="editCourse(${course.id}, 'level', this.value)" /></td>
+            <td><input value="${course.duration}" onchange="editCourse(${course.id}, 'duration', this.value)" /></td>
+            <td><input value="${course.price}" onchange="editCourse(${course.id}, 'price', this.value)" /></td>
+            <td>
+              <button class="action-btn save" onclick="saveCourse(${course.id})"><i class="fa-solid fa-save"></i></button>
+              <button class="action-btn delete" onclick="deleteCourse(${course.id})"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } else {
+        tbody.innerHTML = '<tr><td colspan="5" style="color:#ef4444;">No courses available.</td></tr>';
+      }
+    }
+    async function addCourse(e) {
+      e.preventDefault();
+      const name = document.getElementById('courseName').value.trim();
+      const level = document.getElementById('courseLevel').value.trim();
+      const duration = document.getElementById('courseDuration').value.trim();
+      const price = document.getElementById('coursePrice').value.trim();
+      await fetch('api/courses.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, level, duration, price })
+      });
+      loadCourses();
+      e.target.reset();
+    }
+    async function editCourse(id, field, value) {
+      // Get current course data
+      const res = await fetch('api/courses.php');
+      const data = await res.json();
+      const course = data.courses.find(c => c.id == id);
+      if (!course) return;
+      course[field] = value;
+      await fetch('api/courses.php', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, name: course.name, level: course.level, duration: course.duration, price: course.price })
+      });
+    }
+    async function saveCourse(id) {
+      alert('Course updated!');
+      loadCourses();
+    }
+    async function deleteCourse(id) {
+      if(confirm('Delete this course?')) {
+        await fetch('api/courses.php?id=' + id, { method: 'DELETE' });
+        loadCourses();
+      }
+    }
+    // Initial load
+    loadCourses();
+    // --- Users Monitoring (localStorage for demo, replace with backend for real project) ---
+    function loadUsers() {
+      let users = JSON.parse(localStorage.getItem('users')) || [];
+      const tbody = document.querySelector('#usersTable tbody');
+      tbody.innerHTML = '';
+      users.forEach((user, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${user.firstName || ''} ${user.lastName || ''}</td>
+          <td>${user.email || ''}</td>
+          <td>${user.gender || ''}</td>
+          <td>${user.number || ''}</td>
+          <td><button class="action-btn delete" onclick="deleteUser(${idx})"><i class="fa-solid fa-trash"></i></button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    function deleteUser(idx) {
+      if(confirm('Delete this user?')) {
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        users.splice(idx, 1);
+        localStorage.setItem('users', JSON.stringify(users));
+        loadUsers();
+      }
+    }
+    // --- Sync across devices (demo: localStorage, for real: use backend/database) ---
+    window.addEventListener('storage', function(e) {
+      if(e.key === 'courses') loadCourses();
+      if(e.key === 'users') loadUsers();
+    });
+    // Activity log (user login tracking)
+    async function loadActivity() {
+      // Only use localStorage
+      const activities = JSON.parse(localStorage.getItem('activityLog')) || [];
+      const tbody = document.querySelector('#activityTable tbody');
+      tbody.innerHTML = '';
+      if (activities.length > 0) {
+        activities.forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${row.email}</td><td>${row.action}</td><td>${row.time}</td>`;
+          tbody.appendChild(tr);
+        });
+      } else {
+        tbody.innerHTML = '<tr><td colspan="3" style="color:#ef4444;">No activity found.</td></tr>';
+      }
+    }
+    // Admin settings/privileges (demo: localStorage, for real: use backend)
+    // --- Backend integration for admin settings and privileges ---
+    async function loadAdminSettings() {
+      // Only use localStorage
+      const settings = JSON.parse(localStorage.getItem('adminSettings')) || {
+        canEditCourses: true,
+        canDeleteUsers: true,
+        canViewActivity: true
+      };
+      document.getElementById('canEditCourses').checked = settings.canEditCourses;
+      document.getElementById('canDeleteUsers').checked = settings.canDeleteUsers;
+      document.getElementById('canViewActivity').checked = settings.canViewActivity;
+    }
+    document.getElementById('adminSettingsForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const settings = {
+        canEditCourses: document.getElementById('canEditCourses').checked,
+        canDeleteUsers: document.getElementById('canDeleteUsers').checked,
+        canViewActivity: document.getElementById('canViewActivity').checked
+      };
+      localStorage.setItem('adminSettings', JSON.stringify(settings));
+      alert('Settings saved!');
+      wsSendUpdate('settings');
+    });
+    async function loadAdminUsers() {
+      // Only use localStorage
+      const admins = JSON.parse(localStorage.getItem('adminUsers')) || [{email:'admin@asiemfx.com'}];
+      const tbody = document.querySelector('#adminUsersTable tbody');
+      tbody.innerHTML = '';
+      admins.forEach((admin, idx) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${admin.email}</td><td><button class=\"action-btn delete\" onclick=\"removeAdminLocal(${idx})\">Remove</button></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+    function removeAdminLocal(idx) {
+  if (!confirm('Remove this admin?')) return;
+  const admins = JSON.parse(localStorage.getItem('adminUsers')) || [];
+  admins.splice(idx, 1);
+  localStorage.setItem('adminUsers', JSON.stringify(admins));
+  loadAdminUsers();
+  wsSendUpdate('admins');
+    }
+    async function removeAdmin(email) {
+      if (!confirm('Remove this admin?')) return;
+      const formData = new FormData();
+      formData.append('action', 'remove_admin');
+      formData.append('email', email);
+      await fetch('api/admin_settings.php', { method: 'POST', body: formData });
+      loadAdminUsers();
+      wsSendUpdate('admins');
+    }
+    document.getElementById('addAdminForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('newAdminEmail').value.trim();
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { alert('Invalid email!'); return; }
+      const admins = JSON.parse(localStorage.getItem('adminUsers')) || [{email:'admin@asiemfx.com'}];
+      admins.push({email});
+      localStorage.setItem('adminUsers', JSON.stringify(admins));
+      loadAdminUsers();
+      this.reset();
+      wsSendUpdate('admins');
+    });
+
+    // --- WebSocket for real-time updates ---
+    let ws;
+    function wsConnect() {
+      ws = new WebSocket('ws://localhost:8080');
+      ws.onopen = () => console.log('WebSocket connected');
+      ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          if (msg.type === 'settings') loadAdminSettings();
+          if (msg.type === 'admins') loadAdminUsers();
+        } catch (e) { /* ignore */ }
+      };
+      ws.onclose = () => setTimeout(wsConnect, 2000);
+    }
+    function wsSendUpdate(type) {
+      if (ws && ws.readyState === 1) ws.send(JSON.stringify({type}));
+    }
+    wsConnect();
+    // Initial load
+  loadCourses();
+  loadUsers();
+  loadAdminSettings();
+  loadAdminUsers();
+    // Load activity when Activity section is shown
+    document.querySelector('.admin-nav button:nth-child(3)').addEventListener('click', loadActivity);
+  </script>
+</body>
+</html>

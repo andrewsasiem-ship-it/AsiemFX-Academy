@@ -43,54 +43,31 @@
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentorship - AsiemFX Academy</title>
+  <title>Courses - AsiemFX Academy</title>
   <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="frontend.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body { background: #f7fafc; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-    .container { max-width: 900px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 32px; }
-    h1, h2 { text-align: center; color: #6366f1; }
-    table { width: 100%; border-collapse: collapse; margin-top: 32px; }
-    th, td { padding: 16px; border-bottom: 1px solid #e5e7eb; text-align: center; }
-    th { background: #f0f4ff; color: #222; font-size: 1.1rem; }
-    tr:last-child td { border-bottom: none; }
-    .price { color: #10b981; font-weight: bold; }
-    .course-title { font-size: 1.3rem; color: #222; margin-bottom: 8px; }
-    .desc { color: #555; font-size: 1rem; }
+    .container { max-width: 1100px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); padding: 32px; }
+    h1 { text-align: center; color: #6366f1; }
+    .courses-list { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; margin-top: 32px; }
+    .course-card { background: #f4f6f8; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 28px 24px; min-width: 260px; max-width: 320px; flex: 1 1 260px; display: flex; flex-direction: column; align-items: flex-start; }
+    .course-card h2 { color: #374151; margin-bottom: 8px; font-size: 1.3rem; }
+    .course-card .level { color: #6366f1; font-weight: bold; margin-bottom: 6px; }
+    .course-card .duration { color: #555; margin-bottom: 6px; }
+    .course-card .price { color: #10b981; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Mentorship & Special Courses</h1>
-    <h2>Good Forex / Gold Scalping & Strategy / Pattern Courses</h2>
-    <table>
-      <tr>
-        <th>Course</th>
-        <th>What you’ll learn / Good Points</th>
-        <th>Approx Price</th>
-        <th>Level</th>
-      </tr>
-      <tr>
-        <td class="course-title">Mastering Gold Scalping – EMA 15/9</td>
-        <td class="desc">• How to use EMA 15/9 for fast gold scalping<br>• Entry/exit signals, risk management<br>• Real chart examples & live trading sessions</td>
-        <td class="price">$120</td>
-        <td>Intermediate</td>
-      </tr>
-      <tr>
-        <td class="course-title">Pattern Recognition Masterclass</td>
-        <td class="desc">• Spotting high-probability chart patterns<br>• Breakout & reversal strategies<br>• Backtesting & live market application</td>
-        <td class="price">$99</td>
-        <td>All Levels</td>
-      </tr>
-      <tr>
-        <td class="course-title">Forex Scalping Bootcamp</td>
-        <td class="desc">• Fast-paced forex scalping techniques<br>• Money management for scalpers<br>• Psychology of quick trades</td>
-        <td class="price">$150</td>
-        <td>Advanced</td>
-      </tr>
-    </table>
+    <h1><i class="fa-solid fa-book"></i> Our Courses</h1>
+    <div class="courses-list" id="coursesList">
+      <!-- Courses will be loaded here -->
+    </div>
   </div>
-  <footer>
+  <footer style="text-align:center;margin-top:40px;color:#555;">
     <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
     <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
   </footer>
@@ -114,8 +91,29 @@ function wsConnect() {
   ws.onclose = () => setTimeout(wsConnect, 2000);
 }
 wsConnect();
-    // Example: Add interactivity or dynamic features here
-    // (e.g., filter courses, show more details, etc.)
+    // Fetch courses from backend and display
+    async function loadCourses() {
+      const res = await fetch('api/courses.php');
+      const data = await res.json();
+      const list = document.getElementById('coursesList');
+      list.innerHTML = '';
+      if(data.success && data.courses && data.courses.length > 0) {
+        data.courses.forEach(course => {
+          const div = document.createElement('div');
+          div.className = 'course-card';
+          div.innerHTML = `
+            <h2>${course.name}</h2>
+            <div class="level">${course.level}</div>
+            <div class="duration">${course.duration}</div>
+            <div class="price">${course.price}</div>
+          `;
+          list.appendChild(div);
+        });
+      } else {
+        list.innerHTML = '<p style="color:#ef4444;">No courses available at the moment.</p>';
+      }
+    }
+    loadCourses();
   </script>
 </body>
 </html>

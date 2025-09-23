@@ -1,6 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 100%;
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Message Form</title>
@@ -23,6 +64,25 @@
   </div>
 
   <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
     function sendMessage() {
       let name = document.getElementById("name").value.trim();
       let phone = document.getElementById("phone").value.trim();
@@ -44,7 +104,7 @@
         time: new Date().toLocaleString()
       };
 
-      // Save to localStorage
+      // Only use localStorage for messages
       let savedMessages = JSON.parse(localStorage.getItem("messages")) || [];
       savedMessages.push(msgData);
       localStorage.setItem("messages", JSON.stringify(savedMessages));
@@ -58,4 +118,8 @@
     }
   </script>
 </body>
+<footer>
+  <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+  <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+</footer>
 </html>

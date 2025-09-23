@@ -1,6 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 100%;
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - AsiemFX Academy</title>
@@ -411,6 +451,35 @@
     </div>
     
     <div class="main-content">
+      <section class="payment-methods" style="margin:40px auto;max-width:700px;background:#fff;border-radius:12px;box-shadow:0 2px 12px #e0e7ef;padding:32px;">
+        <h2 style="text-align:center;color:#6366f1;">Payment Methods</h2>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:32px;margin-top:24px;">
+          <div style="text-align:center;">
+            <img src="https://img.icons8.com/color/48/000000/paypal.png" alt="PayPal" style="vertical-align:middle;"/>
+            <div>PayPal</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Bank" style="vertical-align:middle;"/>
+            <div>Banks</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="https://img.icons8.com/color/48/000000/bank-card-back-side.png" alt="Debit/Credit Card" style="vertical-align:middle;"/>
+            <div>Debit & Credit Card</div>
+          </div>
+          <div style="text-align:center;">
+            <img src="https://img.icons8.com/color/48/000000/smartphone-tablet.png" alt="Mobile Money" style="vertical-align:middle;"/>
+            <div>Mobile Money<br><span style="font-size:0.95em;">(MTN, Telecel)</span></div>
+          </div>
+          <div style="text-align:center;">
+            <img src="https://seeklogo.com/images/P/paystack-logo-0B2A0B8C0C-seeklogo.com.png" alt="Paystack" style="vertical-align:middle;width:48px;height:48px;"/>
+            <div>Paystack</div>
+          </div>
+        </div>
+        <p style="text-align:center;margin-top:24px;color:#555;">Choose your preferred payment method at checkout. All transactions are secure and encrypted.</p>
+        <div style="text-align:center;margin-top:24px;">
+          <button onclick="payWithPaystack()" class="btn primary" style="font-size:1.1rem;">Pay with Paystack</button>
+        </div>
+      </section>
       <div class="header" style="display:flex;align-items:center;justify-content:space-between;gap:20px;">
         <div style="display:flex;align-items:center;gap:20px;">
           <div class="profile-pic-container" style="position:relative;">
@@ -528,6 +597,30 @@
   </div>
 
   <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
+    // Paystack payment integration (demo)
+    function payWithPaystack() {
+      alert('Paystack payment integration goes here.');
+      // Example: window.open('https://paystack.com/pay/your-link', '_blank');
+    }
     document.addEventListener("DOMContentLoaded", function() {
       // Check if user is logged in
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -553,6 +646,50 @@
           reader.readAsDataURL(file);
         }
       });
+
+      // Load user activity (fallback to localStorage if backend fails)
+      function loadUserActivity() {
+        // Try backend first (if you have an API, otherwise always fallback)
+        /*
+        fetch('api/activity.php?user=' + encodeURIComponent(currentUser.email))
+          .then(res => res.json())
+          .then(data => {
+            if (data.success && data.activity) {
+              renderActivity(data.activity);
+            } else {
+              throw new Error('No backend');
+            }
+          })
+          .catch(() => {
+            // fallback
+            const allActivity = JSON.parse(localStorage.getItem('activityLog')) || [];
+            const activity = allActivity.filter(a => a.email === currentUser.email);
+            renderActivity(activity);
+          });
+        */
+        // For now, always fallback to localStorage
+        const allActivity = JSON.parse(localStorage.getItem('activityLog')) || [];
+        const activity = allActivity.filter(a => a.email === currentUser.email);
+        renderActivity(activity);
+      }
+
+      function renderActivity(activity) {
+        const tbody = document.getElementById('activityTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        if (activity.length > 0) {
+          activity.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${row.action}</td><td>${row.time}</td>`;
+            tbody.appendChild(tr);
+          });
+        } else {
+          tbody.innerHTML = '<tr><td colspan="2" style="color:#ef4444;">No activity found.</td></tr>';
+        }
+      }
+
+      // Call on load if activity table exists
+      if (document.getElementById('activityTableBody')) loadUserActivity();
     });
     
     function getInitials(name) {

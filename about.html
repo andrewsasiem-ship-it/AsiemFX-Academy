@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .container {
+        max-width: 100%;
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About AsiemFX Academy</title>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #f7fafc; margin: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+    .candlestick-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      background: url('https://www.tradingview.com/x/0Qw8Qw8Q/') center/cover no-repeat;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .about-container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 60px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 40px 32px;
+    }
+    h1, h2 { text-align: center; color: #6366f1; }
+    p { font-size: 1.15rem; color: #222; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="candlestick-bg"></div>
+  <div class="about-container">
+    <h1>About AsiemFX Academy</h1>
+    <h2>Empowering Traders Across Africa and Beyond</h2>
+    <p>
+      AsiemFX Academy is a leading Forex trading education platform dedicated to empowering individuals with the knowledge, skills, and mindset needed to succeed in the global financial markets. Our mission is to make world-class trading education accessible to everyone, regardless of background or experience.<br><br>
+      We offer a wide range of courses, from Forex fundamentals to advanced strategies, including gold scalping, technical analysis, and trading psychology. Our expert mentors provide hands-on guidance, real market insights, and a supportive community to help you grow as a confident, independent trader.<br><br>
+      Join AsiemFX Academy and unlock your financial freedom through expert education, practical tools, and a vibrant network of like-minded traders.
+    </p>
+  </div>
+  <footer>
+    <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+    <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+  </footer>
+  <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
+    // Optionally, add animation or interactivity here
+  </script>
+</body>
+</html>

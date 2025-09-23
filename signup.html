@@ -1,6 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+      text-align: center;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-sizing: border-box;
+      font-size: 1rem;
+      background: #f1f5f9;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+    .send-btn {
+      background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      transition: background 0.2s;
+    }
+    .send-btn:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: #6366f1;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-link:hover {
+      color: #3b82f6;
+      text-decoration: underline;
+    }
+    footer {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 0.95rem;
+      text-align: center;
+      padding: 18px 0 10px 0;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 40px;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - AsiemFX Academy</title>
@@ -24,96 +119,88 @@
 
   <div class="container">
     <h2><i class="fa-solid fa-user-plus"></i> Sign Up</h2>
-    <div class="form-group">
-      <input type="text" id="fullName" placeholder="Full Name" required>
-    </div>
-    <div class="form-group">
-      <input type="email" id="email" placeholder="Email Address" required>
-    </div>
-    <div class="form-group">
-      <input type="tel" id="phone" placeholder="Phone Number (10 digits)" maxlength="10" pattern="\d{10}" required>
-    </div>
-    <div class="form-group">
-      <input type="password" id="password" placeholder="Password" required>
-    </div>
-    <div class="form-group">
-      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-    </div>
-    <button class="send-btn" onclick="signUp()"><i class="fa-solid fa-user-plus"></i> Create Account</button><a href="backend.html" class="btn secondary">Create Account</a>
-    <p class="login-link">Already have an account? <a href="login.html">Log In</a></p>
+  <form class="signup-form" id="signupForm" style="display:flex;flex-direction:column;align-items:center;gap:16px;max-width:400px;margin:0 auto;">
+      <div class="form-group">
+        <input type="text" id="firstName" name="firstName" placeholder="First Name" required style="text-align:center;" pattern="^[A-Za-z]+$" title="First name must contain only letters.">
+      </div>
+      <div class="form-group">
+        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required style="text-align:center;" pattern="^[A-Za-z]+$" title="Last name must contain only letters.">
+      </div>
+      <div class="form-group">
+        <select id="gender" name="gender" required style="text-align:center;width:100%;padding:10px;border-radius:6px;">
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" name="email" placeholder="Email Address" required style="text-align:center;">
+      </div>
+      <div class="form-group">
+        <input type="tel" id="number" name="number" placeholder="Phone Number (10 digits)" maxlength="10" pattern="\d{10}" required style="text-align:center;">
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" name="password" placeholder="Password (Min 8 chars, 1 uppercase, 1 lowercase, 1 number, 1 symbol)" required style="text-align:center;">
+      </div>
+      <div class="form-group">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required style="text-align:center;">
+      </div>
+      <button class="send-btn" type="submit"><i class="fa-solid fa-user-plus"></i> Create Account</button>
+      <p class="login-link">Already have an account? <a href="login.html">Log In</a></p>
+    </form>
   </div>
 
   <footer>
+  <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+  <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
     <p>📍 Accra, Ghana | 📧 support@asiemfxacademy.com | 📱 +233 XXX XXX XXX</p>
     <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
   </footer>
 
   <script>
+// --- WebSocket for real-time updates (Ratchet) ---
+let ws;
+function wsConnect() {
+  ws = new WebSocket('ws://localhost:8080');
+  ws.onopen = () => console.log('WebSocket connected');
+  ws.onmessage = (event) => {
+    try {
+      const msg = JSON.parse(event.data);
+      // Example: handle global update events
+      if (msg.type === 'settings' || msg.type === 'admins') {
+        // Optionally reload settings, users, or show notification
+        location.reload();
+      }
+      // Add more event types as needed
+    } catch (e) { /* ignore */ }
+  };
+  ws.onclose = () => setTimeout(wsConnect, 2000);
+}
+wsConnect();
     function toggleMenu() {
       document.getElementById("navLinks").classList.toggle("show");
     }
 
-    function signUp() {
-      let fullName = document.getElementById("fullName").value.trim();
-      let email = document.getElementById("email").value.trim();
-      let phone = document.getElementById("phone").value.trim();
-      let password = document.getElementById("password").value;
-      let confirmPassword = document.getElementById("confirmPassword").value;
-
-      // Validation
-      if (fullName === "" || email === "" || phone === "" || password === "" || confirmPassword === "") {
-        alert("Please fill in all fields!");
-        return;
+    // Enhanced password validation and redirect after signup
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const number = document.getElementById('number').value.trim();
+        const password = document.getElementById('password').value;
+        const gender = document.getElementById('gender').value;
+        const signupData = { firstName, lastName, email, number, password, gender, role: 'user' };
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.some(u => u.email === email || u.number === number)) {
+          document.getElementById('signupError').textContent = 'User already exists.';
+          return;
+        }
+        users.push(signupData);
+        localStorage.setItem('users', JSON.stringify(users));
+        window.location.href = 'login.html';
       }
-
-      if (!/^\d{10}$/.test(phone)) {
-        alert("Phone number must be exactly 10 digits.");
-        return;
-      }
-
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert("Please enter a valid email address.");
-        return;
-      }
-
-      if (password.length < 6) {
-        alert("Password must be at least 6 characters long.");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-      }
-
-      // Save user data to localStorage
-      let userData = {
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        password: password, // In a real app, this should be encrypted
-        registeredOn: new Date().toLocaleString()
-      };
-
-      // Save to localStorage
-      let users = JSON.parse(localStorage.getItem("users")) || [];
-      
-      // Check if email already exists
-      let existingUser = users.find(user => user.email === email);
-      if (existingUser) {
-        alert("An account with this email already exists!");
-        return;
-      }
-      
-      users.push(userData);
-      localStorage.setItem("users", JSON.stringify(users));
-
-      // Set current user
-      localStorage.setItem("currentUser", JSON.stringify(userData));
-
-      alert("Account created successfully!");
-      window.location.href = "dashboard.html";
-    }
   </script>
 </body>
 </html>

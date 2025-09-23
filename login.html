@@ -1,8 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/jpeg" href="Favicon.jpeg" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(120deg, #f8fafc 0%, #e0e7ff 100%);
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 28px 24px 28px;
+      text-align: center;
+    }
+    h2 {
+      color: #3b82f6;
+      margin-bottom: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      box-sizing: border-box;
+      font-size: 1rem;
+      background: #f1f5f9;
+      transition: border-color 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: #3b82f6;
+      outline: none;
+    }
+    .send-btn {
+      background: linear-gradient(90deg, #3b82f6 0%, #6366f1 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.08);
+      transition: background 0.2s;
+    }
+    .send-btn:hover {
+      background: linear-gradient(90deg, #6366f1 0%, #3b82f6 100%);
+    }
+    #loginError {
+      color: #ef4444;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      min-height: 22px;
+    }
+    .signup-link a {
+      color: #6366f1;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .signup-link a:hover {
+      color: #3b82f6;
+      text-decoration: underline;
+    }
+    footer {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 0.95rem;
+      text-align: center;
+      padding: 18px 0 10px 0;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 40px;
+    }
+    @media (max-width: 500px) {
+      .container {
+        padding: 18px 8px 16px 8px;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      .navbar .logo {
+        font-size: 1.1rem;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  </style>
   <title>Login - AsiemFX Academy</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="frontend.css">
@@ -25,11 +123,12 @@
   <div class="container">
     <h2><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
     <div class="form-group">
-      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="text" id="emailOrPhone" placeholder="Email Address or Phone Number" required style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;box-sizing:border-box;">
     </div>
     <div class="form-group">
-      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="password" placeholder="Password" required style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;box-sizing:border-box;">
     </div>
+    <div id="loginError" style="color: red; margin-bottom: 10px;"></div>
     <button class="send-btn" onclick="login()"><i class="fa-solid fa-sign-in-alt"></i> Login</button>
     <p class="signup-link" style="margin-top: 20px;">Don't have an account? <a href="signup.html">Sign Up</a></p>
     <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
@@ -38,6 +137,8 @@
   <footer>
     <p>📍 Accra, Ghana | 📧 support@asiemfxacademy.com | 📱 +233 XXX XXX XXX</p>
     <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
+    <p>📍 Ghana, Western Region, Agona Nkwanta | 📧 asiemfxacademy@gmail.com | 📱 0534661092 / 0201464371</p>
+    <p>Follow us: Instagram | YouTube | Twitter | LinkedIn</p>
   </footer>
 
   <script>
@@ -45,38 +146,31 @@
       document.getElementById("navLinks").classList.toggle("show");
     }
 
-    function login() {
-      let email = document.getElementById("email").value.trim();
+    async function login() {
+      let emailOrPhone = document.getElementById("emailOrPhone").value.trim();
       let password = document.getElementById("password").value;
+      let errorDiv = document.getElementById("loginError");
+      errorDiv.textContent = ""; // Clear previous error
 
-      if (email === "" || password === "") {
-        alert("Please enter both email and password!");
+      if (emailOrPhone === "" || password === "") {
+        errorDiv.textContent = "Please enter your email/phone and password!";
         return;
       }
 
-      // Get users from localStorage
-      let users = JSON.parse(localStorage.getItem("users")) || [];
-      let user = users.find(u => u.email === email && u.password === password);
-
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+      const user = users.find(u => (u.email === emailOrPhone || u.number === emailOrPhone) && u.password === password);
       if (user) {
-        // Save current user session
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        alert("Login successful!");
-        window.location.href = "dashboard.html";
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        window.location.href = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
       } else {
-        alert("Invalid email or password. Please try again.");
+        errorDiv.innerHTML = "Invalid email/phone or password. Please try again.<br><span style='font-size:0.97em'>If you still can't log in, <a href='reset-password.html' style='color:#3b82f6;text-decoration:underline;'>reset your password</a> or contact support.</span>";
       }
     }
 
-    // Forgot password functionality
+    // Update forgot password to redirect to reset-password.html
     document.getElementById("forgotPassword").addEventListener("click", function(e) {
       e.preventDefault();
-      let email = prompt("Enter your email address to reset your password:");
-      
-      if (email) {
-        alert("If an account with this email exists, password reset instructions will be sent to your email.");
-        // In a real application, this would send an email with reset instructions
-      }
+      window.location.href = "reset-password.html";
     });
   </script>
 </body>
